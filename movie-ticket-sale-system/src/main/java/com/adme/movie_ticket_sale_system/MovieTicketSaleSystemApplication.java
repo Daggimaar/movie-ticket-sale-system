@@ -14,4 +14,4 @@ public class MovieTicketSaleSystemApplication {
 
 
 // Halló heimur :D - EVB
-// Halló halló hæ :) - AMDC
+// Halló halló hæ :) - ANA
