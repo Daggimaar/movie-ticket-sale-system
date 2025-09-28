@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm Delete</title>
+</head>
+<body>
+<h2>Confirm Delete</h2>
+<p>Are you sure you want to delete the movie: <strong th:text="${movie.name}"></strong>?</p>
+
+<form th:action="@{/delete/{id}(id=${movie.id})}" method="post">
+    <button type="submit">Yes, Delete</button>
+</form>
+
+<p><a th:href="@{/home}">Cancel</a></p>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Showing</title>
+</head>
+<body>
+<h2>Add a New Showing</h2>
+<!-- Add Showing Form -->
+<form th:action="@{/admin/showings/add}" th:object="${showing}" method="post" class="mb-4">
+
+    <!-- Cinema Selection -->
+    <div class="mb-3">
+        <label for="cinema" class="form-label">Select Cinema</label>
+        <select id="cinema" class="form-select" required>
+            <option value="" disabled selected>Select Cinema</option>
+            <option th:each="cinema : ${cinemas}"
+                    th:value="${cinema.id}"
+                    th:text="${cinema.name}"></option>
+        </select>
+    </div>
+
+    <!-- Theater Selection -->
+    <div class="mb-3">
+        <label for="theater" class="form-label">Select Theater</label>
+        <select th:field="*{theater.id}" id="theater" class="form-select" required>
+            <option value="" disabled selected>Select Theater</option>
+            <option th:each="theater : ${theaters}"
+                    th:value="${theater.id}"
+                    th:text="${theater.name}"
+                    th:attr="data-cinema-id=${theater.cinema.id}"></option>
+        </select>
+    </div>
+
+    <!-- Movie Selection -->
+    <div class="mb-3">
+        <label for="movie" class="form-label">Select Movie</label>
+        <select th:field="*{movie.id}" id="movie" class="form-select" required>
+            <option value="" disabled selected>Select Movie</option>
+            <option th:each="movie : ${movies}"
+                    th:value="${movie.id}"
+                    th:text="${movie.name}"></option>
+        </select>
+    </div>
+
+    <!-- Show Time -->
+    <div class="mb-3">
+        <label for="showTime" class="form-label">Show Time</label>
+        <input type="datetime-local" th:field="*{showTime}" id="showTime" class="form-control" required/>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-success">Add Showing</button>
+</form>
+
+<p><a th:href="@{/admin}">Back to Home</a></p>
+
+<script>
+    // Cinema -> Theater filtering
+    const cinemaSelect = document.getElementById('cinema');
+    const theaterSelect = document.getElementById('theater');
+    const theaterOptions = Array.from(theaterSelect.querySelectorAll('option[data-cinema-id]'));
+
+    cinemaSelect.addEventListener('change', () => {
+        const selectedCinema = cinemaSelect.value;
+        theaterSelect.value = '';
+
+        theaterOptions.forEach(option => {
+            option.hidden = option.dataset.cinemaId !== selectedCinema;
+        });
+    });
+</script>
+</body>
+</html>

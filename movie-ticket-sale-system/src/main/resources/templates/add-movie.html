@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Movie</title>
+</head>
+<body>
+<h2>Add a New Movie</h2>
+
+<form th:action="@{/admin/movies/add}" th:object="${movie}" method="post">
+
+    <label>Title:</label>
+    <input type="text" th:field="*{name}" /><br/>
+    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    </div>
+
+    <label>Description:</label>
+    <textarea th:field="*{description}"></textarea><br/>
+    <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+
+    <label>Director:</label>
+    <input type="text" th:field="*{director}" /><br/>
+    <div th:if="${#fields.hasErrors('director')}" th:errors="*{director}"></div>
+
+    <label>Trailer Url:</label>
+    <input type="url" th:field="*{filmTrailer}" /><br/>
+
+    <label>Release Date:</label>
+    <input type="date" th:field="*{releaseDate}" /><br/>
+    <div th:if="${#fields.hasErrors('releaseDate')}" th:errors="*{releaseDate}"></div>
+
+    <label>Genre:</label>
+    <input type="text" th:field="*{genre}" /><br/>
+    <div th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}"></div>
+
+    <label>Language:</label>
+    <input type="text" th:field="*{language}" /><br/>
+    <div th:if="${#fields.hasErrors('language')}" th:errors="*{language}"></div>
+
+    <button type="submit">Add Movie</button>
+</form>
+
+
+<p><a th:href="@{/admin}">Back to Home</a></p>
+</body>
+</html>
+
