@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Purchase Tickets</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .seat-row {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+        }
+        .seat-row span {
+            margin: 2px;
+        }
+        .btn-selected {
+            background-color: #ffc107 !important; /* yellow for selected */
+            color: black !important;
+        }
+        #paymentForm {
+            display: none; /* hidden until at least one seat is selected */
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h2 th:text="${showing.movie.name} + ' - ' + ${showing.theater.name}"></h2>
+    <p th:text="'Show time: ' + ${showing.showTime}"></p>
+
+    <!-- Seat Selection Form -->
+    <form th:action="@{/showing/purchase/{id}(id=${showing.id})}" method="post" id="seatForm">
+
+        <div th:each="entry : ${seatMap}">
+            <div class="seat-row">
+                <span th:each="seat : ${entry.value}">
+                    <button type="button"
+                            th:text="${seat}"
+                            th:class="${booking.contains(seat) ? 'btn btn-secondary disabled' : 'btn btn-success available-seat'}"
+                            th:disabled="${booking.contains(seat)}"
+                            onclick="toggleSeat(this)">
+                    </button>
+                </span>
+            </div>
+        </div>
+
+        <input type="hidden" name="selectedSeats" id="selectedSeats" value="">
+
+        <!-- Payment Form (hidden initially) -->
+        <div id="paymentForm" class="card p-3">
+            <h4>Select seat(s) and enter payment info</h4>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email for tickets</label>
+                <input type="email" class="form-control" id="email" name="email" required/>
+            </div>
+
+            <div class="mb-3">
+                <label for="cardNumber" class="form-label">Card Number</label>
+                <input type="text" class="form-control" id="cardNumber" name="cardNumber"
+                       placeholder="1234 5678 9012 3456" required/>
+            </div>
+
+            <div class="mb-3">
+                <label for="expiry" class="form-label">Expiry Date</label>
+                <input type="text" class="form-control" id="expiry" name="expiry" placeholder="MM/YY" required/>
+            </div>
+
+            <div class="mb-3">
+                <label for="cvv" class="form-label">CVV</label>
+                <input type="text" class="form-control" id="cvv" name="cvv" placeholder="123" required/>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Purchase Ticket(s)!</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    const selectedSeats = new Set();
+    const paymentForm = document.getElementById("paymentForm");
+    const hiddenInput = document.getElementById("selectedSeats");
+
+    function toggleSeat(btn) {
+        const seat = btn.innerText;
+
+        if (selectedSeats.has(seat)) {
+            selectedSeats.delete(seat);
+            btn.classList.remove("btn-selected");
+            btn.classList.add("btn-success");
+        } else {
+            selectedSeats.add(seat);
+            btn.classList.add("btn-selected");
+            btn.classList.remove("btn-success");
+        }
+
+        hiddenInput.value = Array.from(selectedSeats).join(",");
+
+        // Show payment form only if at least one seat is selected
+        if (selectedSeats.size > 0) {
+            paymentForm.style.display = "block";
+        } else {
+            paymentForm.style.display = "none";
+        }
+    }
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
