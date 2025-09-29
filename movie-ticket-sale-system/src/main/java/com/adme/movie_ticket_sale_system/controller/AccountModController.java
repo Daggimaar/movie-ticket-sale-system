@@ -107,7 +107,6 @@ public class AccountModController {
 
 
 
-
     // EditAccount(GET/POST)
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String editAccountGET(HttpSession session, Model model) {
