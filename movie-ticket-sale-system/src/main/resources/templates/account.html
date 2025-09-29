@@ -12,15 +12,23 @@
     <ul class="nav nav-tabs" id="accountTabs" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="overview-tab" data-bs-toggle="tab"
-                    data-bs-target="#overview" type="button" role="tab">
-                Overview
-            </button>
+                    data-bs-target="#overview" type="button" role="tab">Overview</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="edit-tab" data-bs-toggle="tab"
+                    data-bs-target="#edit" type="button" role="tab">Edit Account</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="picture-tab" data-bs-toggle="tab"
+                    data-bs-target="#picture" type="button" role="tab">Profile Picture</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="delete-tab" data-bs-toggle="tab"
+                    data-bs-target="#delete" type="button" role="tab">Delete Account</button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="history-tab" data-bs-toggle="tab"
-                    data-bs-target="#history" type="button" role="tab">
-                Purchase History
-            </button>
+                    data-bs-target="#history" type="button" role="tab">Purchase History</button>
         </li>
     </ul>
 
@@ -29,7 +37,6 @@
 
         <!-- Overview -->
         <div class="tab-pane fade show active" id="overview" role="tabpanel">
-            <!-- Profile picture + details -->
             <div class="d-flex align-items-center mb-3">
                 <img th:src="@{'/account/picture/' + ${user.id}}"
                      alt="Profile Picture"
@@ -38,12 +45,13 @@
                 <div>
                     <h4 th:text="${user.name}"></h4>
                     <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
-                    <p><strong>Role:</strong> <span th:text="${user.role}"></span></p>
                 </div>
             </div>
+        </div>
 
-            <!-- Edit Account Form -->
-            <div class="card card-body mb-3">
+        <!-- Edit Account -->
+        <div class="tab-pane fade" id="edit" role="tabpanel">
+            <div class="card card-body">
                 <h5>Edit Account</h5>
                 <form th:action="@{/account/edit}" th:object="${user}" method="post">
                     <div class="mb-3">
@@ -62,17 +70,21 @@
                     <button type="submit" class="btn btn-success">Save Changes</button>
                 </form>
             </div>
+        </div>
 
-            <!-- Upload Profile Picture -->
-            <div class="card card-body mb-3">
+        <!-- Profile Picture -->
+        <div class="tab-pane fade" id="picture" role="tabpanel">
+            <div class="card card-body">
                 <h5>Profile Picture</h5>
                 <form th:action="@{/account/upload-picture}" method="post" enctype="multipart/form-data">
                     <input type="file" name="file" class="form-control mb-2" accept="image/*" required>
                     <button type="submit" class="btn btn-primary">Upload</button>
                 </form>
             </div>
+        </div>
 
-            <!-- Delete Account Form -->
+        <!-- Delete Account -->
+        <div class="tab-pane fade" id="delete" role="tabpanel">
             <div class="card card-body">
                 <h5>Delete Account</h5>
                 <form th:action="@{/account/delete}" th:object="${deleteRequest}" method="post">

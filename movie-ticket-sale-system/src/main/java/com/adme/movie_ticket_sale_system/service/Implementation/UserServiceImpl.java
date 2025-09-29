@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User logInUser(String email, String password) {
+    public User loginUser(String email, String password) {
         User existing = userRepository.findByEmail(email);
         if (existing == null) {
             throw new IllegalArgumentException("No account found with this email.");
@@ -53,7 +53,6 @@ public class UserServiceImpl implements UserService {
         }
         return existing;
     }
-
 
     @Override
     public void resetPassword(String email, String newPassword) {

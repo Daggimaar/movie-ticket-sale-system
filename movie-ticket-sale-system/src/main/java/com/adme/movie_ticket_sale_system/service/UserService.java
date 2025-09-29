@@ -6,12 +6,20 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface UserService {
     User registerUser(User user);
-    User logInUser(String email, String password);
+
+    User loginUser(String email, String password);
+
     User updateProfilePicture(String email, MultipartFile file);
+
     byte[] uploadProfilePicture(Long id);
+
     User findByEmail(String email);
+
     void save(User user);
+
     void delete(User user);
+
     void resetPassword(String email, String newPassword);
+
     User updateAccountInfo(User existingUser, User updatedUser);
 }

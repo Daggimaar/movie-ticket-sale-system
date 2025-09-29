@@ -23,8 +23,6 @@ public class User implements java.io.Serializable {
     private byte[] profilePicture;
 
 
-    @Column(name = "role")
-    private String role;
     public User() {}
 
     public User(String password, String name, String email) {
@@ -32,6 +30,8 @@ public class User implements java.io.Serializable {
         this.name = name;
         this.email = email;
     }
+
+
 
     // --- Getters & Setters ---
     public Long getId() {

@@ -24,14 +24,13 @@ import java.io.InputStream;
 public class AccountModController {
 
     private final UserService userService;
-    private final PasswordEncoder passwordEncoder; // inject PasswordEncoder
-    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
 
     @Autowired
     public AccountModController(UserService userService, PasswordEncoder passwordEncoder, UserRepository userRepository) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
-        this.userRepository = userRepository;
     }
 
     // Dashboard(GET)
@@ -53,7 +52,7 @@ public class AccountModController {
 
     @RequestMapping(value = "/dashboard", method = RequestMethod.POST)
     public String dashboardPOST() {
-        return "redirect:/account/dashboard"; // or handle post logic
+        return "redirect:/account/dashboard";
     }
 
 
@@ -178,7 +177,7 @@ public class AccountModController {
             return "account"; // stay on account page
         }
 
-        userRepository.delete(user);
+        userService.delete(user);
         session.invalidate();
         return "redirect:/login?deleted";
     }

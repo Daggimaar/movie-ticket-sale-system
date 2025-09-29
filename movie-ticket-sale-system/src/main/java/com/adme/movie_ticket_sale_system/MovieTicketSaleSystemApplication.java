@@ -9,6 +9,5 @@ public class MovieTicketSaleSystemApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MovieTicketSaleSystemApplication.class, args);
 	}
-
 }
 

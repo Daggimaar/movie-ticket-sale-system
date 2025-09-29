@@ -14,12 +14,4 @@ public class WebConfig implements WebMvcConfigurer {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-    // Serve uploaded profile pictures
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // Maps http://localhost:8080/uploads/... → local folder "uploads/"
-        registry.addResourceHandler("/uploads/**")
-                .addResourceLocations("file:uploads/");
-    }
 }

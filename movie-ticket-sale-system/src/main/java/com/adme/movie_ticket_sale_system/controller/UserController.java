@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registerPOST(@ModelAttribute("user") User user, BindingResult result, Model model) {
+    public String registerUser(@ModelAttribute("user") User user, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "register";
         }
@@ -54,7 +54,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String loginPOST(@ModelAttribute("user") User user,
+    public String loginUser(@ModelAttribute("user") User user,
                             BindingResult result,
                             HttpSession session,
                             Model model) {
@@ -62,7 +62,7 @@ public class UserController {
             return "login";
         }
         try {
-            User existing = userService.logInUser(user.getEmail(), user.getPassword());
+            User existing = userService.loginUser(user.getEmail(), user.getPassword());
             session.setAttribute("userEmail", existing.getEmail());
             return "redirect:/account/dashboard";
         } catch (IllegalArgumentException e) {
