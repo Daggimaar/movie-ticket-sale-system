@@ -11,3 +11,4 @@ public class MovieTicketSaleSystemApplication {
 		SpringApplication.run(MovieTicketSaleSystemApplication.class, args);
 	}
 }
+
