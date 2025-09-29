@@ -9,8 +9,5 @@ class MovieTicketSaleSystemApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
 
-
-//hello this
